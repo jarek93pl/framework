@@ -118,11 +118,15 @@ namespace Accord.Neuro
         /// 
         public virtual double[] Compute(double[] input)
         {
+            return ComputeWithOffset(input);
+        }
+        public virtual double[] ComputeWithOffset(double[] input, int Offset = 0)
+        {
             // local variable to avoid mutlithread conflicts
             double[] output = input;
 
             // compute each layer
-            for (int i = 0; i < layers.Length; i++)
+            for (int i = 0; i < layers.Length - Offset; i++)
             {
                 output = layers[i].Compute(output);
             }
@@ -132,7 +136,6 @@ namespace Accord.Neuro
 
             return output;
         }
-
         /// <summary>
         /// Randomize layers of the network.
         /// </summary>
